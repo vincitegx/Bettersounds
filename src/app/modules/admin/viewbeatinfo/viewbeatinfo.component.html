@@ -1,0 +1,170 @@
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5>Beats</h5>
+        <ul class="nav text-left">
+          <li class="breadcrumb-item" style="padding-right: 0;"><a href="admindashboard/allbeats"><i class="fa fa-arrow-left" aria-hidden="true"></i> &nbsp;Go back</a></li>
+          <li class="breadcrumb-item"><a href="admindashboard/updatebeat/{{beat?.id}}"><i class="fa fa-edit"></i> &nbsp;Edit</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card-body" id="main-container">
+      <ng-container *ngIf="(appState$ | async) as appState" [ngSwitch]="appState.dataState">
+        <ng-container *ngSwitchCase="DataState.LOADING_STATE">
+          <div class="col-md-12 single-note-item text-center">
+            <div class=" spinner-border text-info"></div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="DataState.LOADED_STATE">
+          <div class="row">
+            <div class="col-md-4 col-sm-6">
+              <mat-card class="shadow-sm">
+                <div class="shadow-md">
+                  <img mat-card-img class="mat-card-img" src="{{ beat?.artWork }}">
+                </div>
+                <mat-card-content>
+                  <audio controls>
+                    <source src="{{ beat?.uri }}" type="audio/ogg">
+                    <source src="{{ beat?.uri }}" type="audio/mpeg">
+                  </audio>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div class="col-md-8 mt-3">
+
+              <h3>{{beat?.name}}</h3>
+              <div class="row">
+                <div class="col-6">
+                  <p><strong>Main Creator: </strong><span>{{ beat?.mainCreator }}</span></p>
+                  <p><strong>Price (mp3): </strong><span>${{beat?.priceMp3.toFixed(2)}}</span></p>
+
+                  <p><strong>BPM: </strong><span>{{beat?.tempo}}</span></p>
+                  <p><strong>Beat Key: </strong><span>{{beat?.beatKey.name}}</span></p>
+
+                  <p><strong>Posted Date: </strong><span>{{ beat?.postedDate}}</span></p>
+                  <p><strong>Tagged Mp3: </strong>
+                    <audio controls>
+                      <source src="{{ beat?.purchaseFile.mp3Uri }}" type="audio/ogg">
+                      <source src="{{ beat?.purchaseFile.mp3Uri}}" type="audio/mpeg">
+                    </audio>
+                  </p>
+                </div>
+
+                <div class="col-6">
+                  <p><strong>Genre: </strong><span>{{beat?.genre.name}}</span></p>
+                  <p><strong>Price (.wav): </strong><span>${{beat?.priceWav.toFixed(2)}}</span></p>
+
+                  <p><strong>Mood: </strong><span>{{beat?.mood.name}}</span></p>
+                  <p><strong>Contributing Creators: </strong>
+                    <span>{{ beat?.contributingCreators.length == 0 ? 'None' : beat?.contributingCreators}}</span>
+                  </p>
+
+                  <p><strong>Modified Date: </strong><span>{{ beat?.modifiedDate}}</span></p>
+                  <p><strong>Tagged Wav: </strong>
+                    <audio controls>
+                      <source src="{{ beat?.purchaseFile.wavUri }}" type="audio/ogg">
+                      <source src="{{ beat?.purchaseFile.wavUri }}" type="audio/mpeg">
+                    </audio>
+                  </p>
+                </div>
+              </div>
+
+              <p><Strong>Description: </Strong><span>{{beat?.description}}</span></p>
+              <!-- <form action="#" method="post" class="form">
+                <h3>{{beat?.name}}</h3>
+                <p class="lead py-2" style="font-size: 16px;">{{beat?.description}}</p>
+                <p>Beat MetaData</p>
+                <hr>
+                <div class="row">
+                  <div class="col-md-4 col-sm-6">
+                    <p>
+                      <span>Genre</span>
+                      <br>
+                      <strong>{{beat?.genre.name}}</strong>
+                    </p>
+                  </div>
+                  <div class="col-md-4 col-sm-6">
+                    <p><span>Beat Key</span><br>
+                      <strong>{{beat?.beatKey.name}}</strong>
+                    </p>
+                  </div>
+                  <div class="col-md-4 col-sm-6">
+                    <p><span> BPM</span><br>
+                      <strong>{{beat?.tempo}}</strong>
+                    </p>
+                  </div>
+                  <div class="col-md-4 col-sm-6">
+                    <p>
+                      <span>Date Created</span>
+
+                      <br>
+
+                      <strong>{{date}}</strong>
+                    </p>
+                  </div>
+
+                  <div class="col-md-4 col-sm-6">
+                    <p>
+                      <span>Mood</span>
+
+                      <br>
+
+                      <strong>{{beat?.mood.name}}</strong>
+                    </p>
+                  </div>
+
+                  <div class="col-md-4 col-sm-6">
+                    <p>
+                      <span>Created By</span>
+
+                      <br>
+
+                      <strong>{{beat?.mainCreator}}</strong>
+                    </p>
+                  </div>
+                  <div class="col-md-4 col-sm-6">
+                    <p>
+                      <span>Contributing Creators</span>
+
+                      <br>
+
+                      <strong>{{ beat?.contributingCreators.length == 0 ? 'None' : beat.contributingCreators}}</strong>
+                    </p>
+                  </div>
+                </div>
+              </form> -->
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="DataState.ERROR_STATE">
+          <div class="alert alert-danger p-3">
+            Resource Unavailable, Check Again Later !!!
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModelLabel">Delete Beat</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete beat {{deleteBeat?.name}}?</p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button (click)="onDeleteBeat(deleteBeat?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

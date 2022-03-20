@@ -1,0 +1,59 @@
+/* @import url('../../../../../src/assets/vendor/datatables/dataTables.bootstrap4.min.css'); */
+
+.avatar-upload{
+    position: relative;
+    max-width: 205px;
+    margin: auto;
+}
+.avatar-edit{
+    position: absolute;
+    right: 0;
+    left: 145px;
+    z-index: 1;
+    top: 10px;
+}
+#imageUpload{
+    display: none;
+}
+#penback{
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    background: #ebb837;
+    border: 3px solid transparent;
+    box-shadow:  0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all .2s ease-in-out;
+}
+#penback:hover{
+    background: #00000082;
+    border: #d6d6d6;
+}
+#penback:after{
+    content: "\f040";
+    font-family: 'FontAwesome';
+    color: #efeeee;
+    position: absolute;
+    top: 7px;
+    right: 173;
+    font-size: 25px;
+    text-align: center;
+    margin: auto;
+}
+.avatar-preview{
+    width: 192px;
+    height: 192px;
+    position: relative;
+    border-radius: 100%;
+    border: 2px solid #F8F8F8;
+    box-shadow: 0px 0px 0px 5px rgb(235, 184, 55);
+}
+.h5mgs{
+    margin: auto;
+    color: #ebb837;
+    font-size: 20px;
+    text-align: center;
+}

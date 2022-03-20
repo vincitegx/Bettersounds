@@ -1,0 +1,78 @@
+
+<section class="signin-form my-2">
+    <div class="overlay">
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <div class="card mt-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h2>Sign up</h2>
+                            <div class="text-left">
+                                <img src="../../../assets/img/icons8_Male_User_75px.png" width="35" height="35" style="border-radius: 100%;">
+                            </div>
+                        </div>
+                        <div class="card-body px-4">
+                            <form [formGroup]="signUpForm" (ngSubmit)="signUpForm.valid && onSubmitRegistrationForm()">
+                                <div class="form-group">
+                                    <input type="text" name="fname" [formControlName]="'fname'" placeholder="Enter Full Name" class="input form-control" required />
+                                    <span *ngIf="!signUpForm.get('fname').valid && signUpForm.get('fname').touched" class="error">Full Name Field Is Required</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" [formControlName]="'email'" placeholder="Enter Email Address" class="input form-control" required />
+                                    <span *ngIf="!signUpForm.get('email').valid && signUpForm.get('email').touched" class="error">Email Field Is Invalid</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" [formControlName]="'password'" placeholder="Enter Password" class="input form-control" required />
+                                    <span *ngIf="!signUpForm.get('password').valid && signUpForm.get('password').touched" class="error">Password Field Is Required</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="cpassword" [formControlName]="'cpassword'" placeholder="Confirm Password" class="input form-control" required />
+                                    <span *ngIf="!signUpForm.get('cpassword').valid && signUpForm.get('cpassword').touched && signUpForm.get('cpassword').value == signUpForm.get('password')" class="error">Full Name Field Is Required</span>
+                                </div>
+                                <button type="submit" [disabled]="signUpForm.invalid" class="btn signinbutton btn-block">Register</button>
+                                <p class="signup">Have An Account?<a href="account" class="signuplink">Sign In</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- <section class="signin-form my-2">
+    <div class="overlay">
+         <div class="form34">
+                <h4 class="form-head">Sign Up</h4>
+                <form [formGroup]="signUpForm" (ngSubmit)="onSubmitRegistrationForm()">
+                        <div class="form-group">
+                            <p class="text-head">Full Name</p>
+                            <input type="text" name="fname" [formControlName]="'fname'" class="input form-control" required />
+                            <span *ngIf="!signUpForm.get('fname').valid && signUpForm.get('fname').touched" class="error">Full Name Field Is Required</span>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-head">Email Address</p>
+                            <input type="email" name="email" [formControlName]="'email'" class="input form-control" required />
+                            <span *ngIf="!signUpForm.get('email').valid && signUpForm.get('email').touched" class="error">Email Field Is Invalid</span>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-head">Password</p>
+                            <input type="password" name="password" [formControlName]="'password'" class="input form-control" required />
+                            <span *ngIf="!signUpForm.get('password').valid && signUpForm.get('password').touched" class="error">Password Field Is Required</span>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-head">Confirm Password</p>
+                            <input type="password" name="cpassword" [formControlName]="'cpassword'" class="input form-control" required />
+                            <span *ngIf="!signUpForm.get('cpassword').valid && signUpForm.get('cpassword').touched && signUpForm.get('cpassword').value == signUpForm.get('password')" class="error">Full Name Field Is Required</span>
+                        </div>
+                        <button type="submit" [disabled]="signUpForm.invalid" class="btn signinbutton">Register</button>
+    
+                        <p class="signup">Have An Account?<a href="account" class="signuplink">Sign In</a>
+                        </p>
+                    </form>
+            </div>
+        </div>
+        </div>
+</section> -->

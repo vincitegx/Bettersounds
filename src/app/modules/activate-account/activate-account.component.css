@@ -1,0 +1,60 @@
+* {
+    box-sizing: border-box;
+  }
+
+  .signin-form {
+    background: url("../../../assets/img/dylan-mcleod-VRdZBLqnoMU-unsplash.jpg");
+    background-size: cover;
+  }
+  .overlay {
+    background: linear-gradient(to right, rgba(18, 34, 19, 0.336), rgb(69, 254, 52));
+    padding: 4rem 0;
+  }
+  
+  .wrapper-full {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  .wrapper {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  @media (min-width: 576px) {
+    .wrapper {
+      max-width: 540px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .wrapper {
+      max-width: 720px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .wrapper {
+      max-width: 960px;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .wrapper {
+      max-width: 1140px;
+    }
+  }
+  
+  .form34 {
+    margin: 0 auto;
+    max-width: 420px;
+    border: 1px solid #eee;
+    padding: 2rem;
+    background: white;
+  }

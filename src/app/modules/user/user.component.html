@@ -1,0 +1,66 @@
+<div class="album py-5 my-5 bg-light">
+    <div class="container">
+      <div class="row"> 
+          <!-- *ngFor="let beat of beat$" -->
+        <div class="col-md-3 col-sm-6" >
+          <div class="card mb-3 shadow-sm">
+            <div class="bd-placeholder-img card-img-top p-5" style="background-color: #55595c;">
+              <div class="align-items-center justify-content-center text-center">
+                <img  src="../../../assets/img/Music_75px.png" role="img" width="50" height="50">
+              </div>
+            </div>
+            <!-- <audio controls>
+              <source src="{{ beat?.uri }}" type="audio/ogg">
+              <source src="{{ beat?.uri }}" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>  -->
+            <div class="card-body">
+              <!-- <p class="card-text">{{ beat?.name }}</p> -->
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">
+                    <img  src="../../../assets/img/Like It_20px_2.png" role="img">
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">
+                    <img  src="../../../assets/img/Shopping Cart_20px_1.png" role="img">
+                  </button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+
+          <mat-card>
+            <img mat-card-img src="../../../assets/img/twerk.jpg">
+            <mat-card-content>
+                <audio controls>
+                    <source src="../../../assets/img/Rema-Lady.mp3" type="audio/ogg">
+                    <source src="../../../assets/img/Rema-Lady.mp3" type="audio/mpeg">
+                </audio>
+                <div class="card-details">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <a href="#" style="text-decoration: none; color: white;">
+                        <h4 class="card-text">Magic</h4>
+                        <small style="color: #46fd35;">Afro-Pop</small>
+                      </a>
+                    </div>
+                    <div class="btn-group">
+                      <a type="button" class="btn btn-sm btn-outline-secondary" href="/info/1">
+                        <img  src="../../../assets/img/Like It_20px_2.png" role="img">
+                      </a>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">
+                        <img  src="../../../assets/img/Add Shopping Cart_20px.png"  role="img"> 
+                        <span style="color: white; font-weight: 500; font-size: 15px; padding-left: 1.8px;">$23.39</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+
+        </div>
+      </div>
+    </div>
+  </div>

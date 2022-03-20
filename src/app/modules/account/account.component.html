@@ -1,0 +1,45 @@
+<section class="signin-form my-2">
+    <div class="overlay">
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <div class="card mt-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h2 style="font-weight: 300;">Sign in...</h2>
+                        </div>
+                        <div class="card-body px-4">
+                            <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && login()">
+                                <div class="form-group">
+                                    <input type="email" [formControlName]="'email'" autocomplete="email" class="input"
+                                        placeholder="Enter Email..." required />
+                                    <span
+                                        *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched"><small>**
+                                            Email Field Is Required</small></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" [formControlName]="'password'"
+                                        autocomplete="current-password" class="input" placeholder="Enter Password..."
+                                        required />
+                                    <span
+                                        *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched"><small>**
+                                            Password Field Is Required</small></span>
+                                </div>
+                                <label class="remember">
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>Remember me
+                                </label>
+                                <button [disabled]="!loginForm.valid" type="submit" id="submtbtn"
+                                    class="signinbutton btn btn-block">
+                                    <i *ngIf="isLoading$ | async" class="fas fa-spinner fa-spin"></i> &nbsp;&nbsp;
+                                    <span *ngIf="isLoading$ | async">Processing...</span><span
+                                        *ngIf="!(isLoading$ | async)">Sign in</span></button>
+                                <p class="signup">Have not an account yet?<a href="signup" class="signuplink">Sign
+                                        up</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

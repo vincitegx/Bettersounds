@@ -1,0 +1,147 @@
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Beats</h1>
+    <form [formGroup]="addBeatForm" (ngSubmit)="saveForm()">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold">Add New <small class="text-danger">(* is a required field)</small></h6>
+            </div>
+            <div class="card-body">
+                <div>
+                    Basic Info
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="file" name="artWork" (change)="onSelectArtWork($event)"
+                            [formControlName]="'artWork'" class="form-control-file" id="imageUpload1"
+                            accept=".png,.jpg,.jpeg" style="display: none;">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="m-t-30" style="text-align: center;">
+                                    <img src="../../../../assets/img/Music_75px.png" id="imageUpload1"
+                                        class="img-circle" width="100" height="100" />
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div style="text-align: center; border: black; border-radius: 100%;">
+                                    <label id="penback1" for="imageUpload1">
+                                        <a class="btn btn-default">Upload An ArtWork</a>
+                                    </label><br>
+                                    <small class="text-info">Image Resolution (500 X 500)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="name">Name Of Beat</label>
+                            <input type="text" name="name" [formControlName]="'name'" class="form-control" id="name"
+                                placeholder="Enter Beat Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Select Genre</label>
+                            <select class="form-control" [(ngModel)]="defaultSelectedGenre" name="genre"
+                                [formControlName]="'genre'" id="exampleFormControlSelect1">
+                                <option [value]="g.id" *ngFor="let g of genres;">{{g.name}}</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="priceMp3">Price (Mp3)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input step="0.01" min="0.0" type="number" name="priceMp3"
+                                    [formControlName]="'priceMp3'" class="form-control" id="priceMp3"
+                                    placeholder="Price ($)" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="priceWav">Price (Wav)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input step="0.01" min="0.0" type="number" name="priceWav"
+                                    [formControlName]="'priceWav'" class="form-control" id="priceWav"
+                                    class="form-control" placeholder="Price ($)" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Enter Tagged Version Of Media (.mp3 format
+                                only)</label>
+                            <input type="file" name="taggedmp3" (change)="onSelectTaggedMp3($event)"
+                                [formControlName]="'taggedmp3'" class="form-control-file" id="exampleFormControlFile1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Enter Untagged Verion Of Media (.mp3 format
+                                only)</label>
+                            <input type="file" name="untaggedmp3" (change)="onSelectUntaggedMp3($event)"
+                                [formControlName]="'untaggedmp3'" class="form-control-file"
+                                id="exampleFormControlFile1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Enter Untagged Verion Of Media (.wav format
+                                only)</label>
+                            <input type="file" name="untaggedwav" (change)="onSelectUntaggedWav($event)"
+                                [formControlName]="'untaggedwav'" class="form-control-file"
+                                id="exampleFormControlFile1">
+                        </div>
+                    </div>
+                </div>
+                <p class="mb-4"></p>
+                <div>
+                    Other MetaData
+                </div>
+                <hr>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Select Key</label>
+                        <select class="form-control" [(ngModel)]="defaultSelectedBeatKey" name="beatKey"
+                            [formControlName]="'beatKey'" id="exampleFormControlSelect1">
+                            <option [value]="b.id" *ngFor="let b of beatKeys;">{{b.name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bpm">BPM (Beat Per Minute)</label>
+                        <input type="number" name="tempo" [formControlName]="'tempo'" class="form-control" id="bpm"
+                            placeholder="Enter BPM">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Select Mood</label>
+                        <select class="form-control" [(ngModel)]="defaultSelectedMood" name="mood"
+                            [formControlName]="'mood'" id="exampleFormControlSelect1">
+                            <option [value]="m.id" *ngFor="let m of moods;">{{m.name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Other Description</label>
+                        <textarea class="form-control" name="description" [formControlName]="'description'" id="comment"
+                            rows="5">
+
+                        </textarea>
+                    </div>
+                </div>
+                <button class="btn btn-success" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<!-- <div style="position: absolute;">
+                    <div class="avatar-upload">
+                        <div class="avatar-edit">
+                            <input type="file" class="form-control-file" id="imageUpload" accept=".png,.jpg,.jpeg">
+                            <label id="penback" for="imageUpload"></label>
+                        </div>
+                        <div class="avatar-preview" id="avatar-preview">
+                            <div id="imagePreview" style="background-image: url('../../../../assets/img/face.jpg')">
+    
+                            </div>
+                        </div>
+                        <div class="h5mgs">
+                            <h5 id="mgs">Image Size Be 2 mb</h5>
+                        </div>
+                    </div>
+                </div> -->

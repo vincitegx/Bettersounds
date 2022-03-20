@@ -1,0 +1,73 @@
+<div class="album py-5 my-5 bg-light">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h3>Welcome <span style="font-weight: normal;">{{ username | async }}</span></h3>
+      <a class="btn btn-secondary" href="beats" style="background-color: #45fe34; border-color: #45fe34">Continue
+        Shopping &rightarrow;</a>
+    </div>
+    <hr class="my-3">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <div class="card">
+          <div class="card-body" id="main-container">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted">Your cart<span class="badge badge-success badge-pill small"
+                  style="font-size: 8px">{{(items$ | async).length}}</span></span>
+              <a href="checkout" [style.display]="totalItems > 0 ? 'block' : 'none' " class="btn btn-success"
+                style="background-color: #45fe34; border-color: #45fe34">Check Out &rightarrow;</a>
+            </h4>
+            <hr>
+            <ng-template [ngIf]="totalItems > 0" [ngIfElse]="none">
+              <table class="table table-striped">
+                <tbody>
+                  <tr *ngFor="let cartItem of cartItems">
+                    <td class="image">
+                      <img [src]='clientApiUrl+"/"+cartItem?.beat.artWork' alt="artwork" height="40" width="45">
+                    </td>
+                    <td id="name" scope="row" style="color: #000; padding-top: 20px;">
+                      {{ cartItem?.beat.name }}
+                    </td>
+                    <td style="color: #000; padding-top: 20px;">${{ cartItem?.beatType == 'MP3' ?
+                      cartItem?.beat.priceMp3.toFixed(2)  : cartItem?.beat.priceWav.toFixed(2) }}
+                    </td>
+                    <td>
+                      <span class="badge p-2" style="color: white; margin-top: 6px;" [ngClass]="[cartItem.beatType === BeatType.mp3 ? ' badge-primary': ' badge-warning']">{{cartItem?.beatType}}</span>
+                    </td>
+                    <!-- <td>
+                      <input type="number" ngModel="{{cartItem?.qty}}" min="1" (ngModelChange)="onCartQtyChanged(cartItem, $event)" name="qty" class="form-control" id="qty" aria-describedby="emailHelp" placeholder="Quantity">
+                    </td> -->
+                    <td>
+                      <div id="view-small"></div>
+                      <a id="view" href="/info/{{cartItem?.beat.id}}" class="btn btn-block btn-info text-white">
+                        View Details
+                      </a>
+                    </td>
+                    <td>
+                      <div id="delete-small"></div>
+                      <button id="delete" (click)="removeItemFromCart(cartItem)" class="btn btn-block btn-danger">
+                        Remove From Cart
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="image"></td>
+                    <th scope="row">Total</th>
+                    <td><b>${{ totalPrice.toFixed(2)}}</b></td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-template>
+            <ng-template #none>
+              You Have No Item In Cart
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

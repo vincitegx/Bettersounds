@@ -1,0 +1,25 @@
+<div class="thebody">
+    <div class="col-md-6 offset-md-3 mt-5 signin-form">
+        <div class="card">
+            <div class="card-header">
+                <div class="container">
+                    <a class="btn btn-secondary btn-sm float-right" href=""><i class="fa fa-home"></i> &nbsp;Back To Home</a>
+                    <h4>Better Sounds</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-control" [formControlName]="'email'" placeholder="Enter Email..." />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" [formControlName]="'password'" placeholder="Enter Password" name="password" />
+                    </div>
+                    <button type="submit" class="btn btn-block btn-primary" style="background-color: #333; border-color: #333; color: white;"><i class="fa fa-user"></i> &nbsp;Login As Administrator</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+ 

@@ -1,0 +1,176 @@
+<div class="container-fluid">
+    <form [formGroup]="updateBeatForm" (ngSubmit)="saveForm()"> 
+        <div class="card shadow mb-4">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5>Beats</h5>
+                  <ul class="nav text-left">
+                    <li class="breadcrumb-item" style="padding-right: 0;"><a href="admindashboard/allbeats"><i class="fa fa-arrow-left" aria-hidden="true"></i> &nbsp;Go back</a></li>
+                  </ul>
+                </div>
+              </div>
+            <div class="card-body">
+                <ng-container *ngIf="(appState$ | async) as appState" [ngSwitch]="appState.dataState">
+                    <ng-container *ngSwitchCase="DataState.LOADING_STATE">
+                      <div class="col-md-12 single-note-item text-center">
+                        <div class=" spinner-border text-info"></div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="DataState.LOADED_STATE">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="file" name="artWork" (change)="onSelectArtWork($event)"
+                                    [formControlName]="'artWork'" class="form-control-file" id="imageUpload1"
+                                    accept=".png,.jpg,.jpeg" style="display: none;">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="m-t-30" style="text-align: center;">
+                                            <img src="{{ updateBeat?.artWork }}" id="imageUpload1"
+                                                class="text-center" style="height: fit-content;" width="300"/>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div style="text-align: center; border: black; border-radius: 100%;">
+                                            <label id="penback1" for="imageUpload1">
+                                                <a class="btn btn-default">Upload An ArtWork</a>
+                                            </label><br>
+                                            <small class="text-info">Image Resolution (500 X 500)</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="name">Name Of Beat</label>
+                                    <input type="text" ngModel="{{updateBeat?.name}}" name="name" [formControlName]="'name'" class="form-control" id="name"
+                                        placeholder="Enter Beat Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Select Genre</label>
+                                    <select class="form-control" [(ngModel)]="updateBeat?.genre.id" name="genre"
+                                        [formControlName]="'genre'" id="exampleFormControlSelect1">
+                                        <option [value]="g.id" *ngFor="let g of genres;">{{g.name}}</option>
+        
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="priceMp3">Price (Mp3)</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">$</span>
+                                        </div>
+                                        <input ngModel="{{updateBeat?.priceMp3.toFixed(2)}}" step="0.01" min="0.0" type="number" name="priceMp3"
+                                            [formControlName]="'priceMp3'" class="form-control" id="priceMp3"
+                                            placeholder="Price ($)" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="priceWav">Price (Wav)</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">$</span>
+                                        </div>
+                                        <input ngModel="{{updateBeat?.priceWav.toFixed(2)}}" step="0.01" min="0.0" type="number" name="priceWav"
+                                            [formControlName]="'priceWav'" class="form-control" id="priceWav"
+                                            class="form-control" placeholder="Price ($)" />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <p class="mb-4"></p>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">Enter Tagged Version Of Media (.mp3 format
+                                    only)</label>
+                                    <div class="table-responsive">
+                                        <table id="exampleFormControlFile1" class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input type="file" name="taggedmp3" (change)="onSelectTaggedMp3($event)"
+                                        [formControlName]="'taggedmp3'" class="form-control-file" id="">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">Enter Untagged Verion Of Media (.mp3 format
+                                    only)</label>
+                                    <div class="table-responsive">
+                                        <table id="exampleFormControlFile1" class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input type="file" name="untaggedmp3" (change)="onSelectUntaggedMp3($event)"
+                                        [formControlName]="'untaggedmp3'" class="form-control-file" id="">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">Enter Untagged Verion Of Media (.wav format
+                                    only)</label>
+                                    <div class="table-responsive">
+                                        <table id="exampleFormControlFile1" class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input type="file" name="untaggedwav" (change)="onSelectUntaggedWav($event)"
+                                        [formControlName]="'untaggedwav'" class="form-control-file">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                        </div>
+                        <p class="mb-4"></p>
+                        <div>
+                            Other MetaData
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Select Key</label>
+                                <select class="form-control" [(ngModel)]="updateBeat?.beatKey.id" name="beatKey"
+                                    [formControlName]="'beatKey'" id="exampleFormControlSelect1">
+                                    <option [value]="b.id" *ngFor="let b of beatKeys;">{{b.name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="bpm">BPM (Beat Per Minute)</label>
+                                <input type="number" ngModel="{{updateBeat?.tempo}}" name="tempo" [formControlName]="'tempo'" class="form-control" id="bpm"
+                                    placeholder="Enter BPM">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Select Mood</label>
+                                <select class="form-control" [(ngModel)]="updateBeat?.mood.id" name="mood"
+                                    [formControlName]="'mood'" id="exampleFormControlSelect1">
+                                    <option [value]="m.id" *ngFor="let m of moods;">{{m.name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment">Other Description</label>
+                                <textarea ngModel="{{updateBeat?.description}}" class="form-control" name="description" [formControlName]="'description'" id="comment"
+                                    rows="5">
+        
+                                </textarea>
+                            </div>
+                        </div>
+                        <button class="btn btn-success" type="submit">Update</button>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="DataState.ERROR_STATE">
+                      <div class="alert alert-danger p-3">
+                        Resource Unavailable, Check Again Later !!!
+                      </div>
+                    </ng-container>
+                  </ng-container>
+            </div>
+        </div>
+    </form>
+</div>

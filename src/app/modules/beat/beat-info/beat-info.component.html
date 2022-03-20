@@ -1,0 +1,137 @@
+<div class="album py-5 mt-5 bg-light">
+  <div class="container">
+    <ng-container *ngIf="(appState$ | async) as appState" [ngSwitch]="appState.dataState">
+      <ng-container *ngSwitchCase="DataState.LOADING_STATE">
+        <div class="col-md-12 single-note-item text-center">
+          <div class=" spinner-border text-info"></div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="DataState.LOADED_STATE">
+        <div class="row">
+          <div class="col-md-4 col-sm-6">
+            <mat-card class="shadow-sm">
+              <div class="shadow-md">
+                <img mat-card-img class="mat-card-img" [src]='clientApiUrl+"/"+beat?.artWork'>
+              </div>
+              <mat-card-content>
+                <audio controls>
+                  <source src="{{ beat?.uri }}" type="audio/ogg">
+                  <source src="{{ beat?.uri }}" type="audio/mpeg">
+                </audio>
+                <div class="card-details">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <p class="card-text">{{ beat?.name }}</p>
+                      <small style="color: #46fd35;">{{ beat?.genre.name }}</small>
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-outline-secondary" style=" position: relative;"
+                        (click)="addToCart(beat, 'MP3')">
+                        <img src="../../../assets/img/Add Shopping Cart_20px.png" width="15" height="15" role="img"
+                          style="padding-left: 2px;">
+                        <span
+                          style="color: white; font-weight: 500; font-size: 12px; padding-left: 1.8px;">${{beat?.priceMp3.toFixed(2)}}</span>
+                        <sup style="position:absolute;right:0;top: 6px;">
+                          <span class="label label-info"
+                            style="font-size: 9px;background-color: blue; border-color: lightgrey; color: white;padding: 2px;">mp3</span>
+                        </sup>
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary" style="padding: 8px; position: relative;"
+                        (click)="addToCart(beat, 'WAV')">
+                        <img src="../../../assets/img/Add Shopping Cart_20px.png" width="15" height="15" role="img"
+                          style="padding-left: 2px;">
+                        <span
+                          style="color: white; font-weight: 500; font-size: 12px; padding-left: 1.8px;">${{beat?.priceWav.toFixed(2)}}</span>
+                        <sup style="position:absolute;right:0;top: 6px;">
+                          <span class="label label-warning"
+                            style="font-size: 9px;background-color: orange; border-color: lightgrey; color: white; padding: 2px;">wav</span>
+                        </sup>
+                      </button>
+                      <button type="button" class="btn dropdown-toggle"
+                        style="padding: 4px; background-color: #46fd35; color: white;" data-toggle="dropdown">
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Like</a></li>
+                        <li><a href="#">Comment</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="col-md-8 mt-3">
+            <form action="#" method="post" class="form">
+              <h2>{{beat?.name}}</h2>
+              <p class="lead py-2" style="font-size: 16px;">{{beat?.description}}</p>
+              <p>Beat MetaData</p><hr>
+              <div class="row">
+                <div class="col-md-4 col-sm-6">
+                  <p>
+                    <span>Genre</span>
+                    <br>
+                    <strong>{{beat?.genre.name}}</strong>
+                  </p>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                  <p><span>Beat Key</span><br>
+                    <strong>{{beat?.beatKey.name}}</strong>
+                  </p>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                  <p><span> BPM</span><br>
+                    <strong>{{beat?.tempo}}</strong>
+                  </p>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                  <p>
+                    <span>Date Created</span>
+
+                    <br>
+
+                    <strong>{{date}}</strong>
+                  </p>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                  <p>
+                    <span>Mood</span>
+
+                    <br>
+
+                    <strong>{{beat?.mood.name}}</strong>
+                  </p>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                  <p>
+                    <span>Created By</span>
+
+                    <br>
+
+                    <strong>{{beat?.mainCreator}}</strong>
+                  </p>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                  <p>
+                    <span>Contributing Creators</span>
+
+                    <br>
+
+                    <strong>{{ beat?.contributingCreators.length == 0 ? 'None' : beat.contributingCreators}}</strong>
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="DataState.ERROR_STATE">
+        <div class="alert alert-danger p-3">
+          Resource Unavailable, Check Again Later !!!
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

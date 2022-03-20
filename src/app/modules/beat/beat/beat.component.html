@@ -1,0 +1,109 @@
+<div class="album py-5 mt-5 bg-light">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h3 style="color: darkgray;">{{ property | async }}</h3>
+      <form class="form-inline my-2 my-md-0" [formGroup]="searchForm" (ngSubmit)="setSearch($event)">
+        <div class="input-group">
+          <input class="form-control" type="text" name="search" [formControlName]="'search'"
+            placeholder="Search Name Or Genre..." aria-label="Search">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-secondary">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+      <form class="text-left">  
+        <select class="form-control" name="sort" (change)="setSort($event)">
+          <option value="id" selected>Default Sorting (Date)</option>
+          <option value="name">(A-Z) Alphabetical</option>
+          <option value="priceMp3">Price</option>
+        </select>
+      </form> 
+    </div>
+    <hr>
+    <ng-container *ngIf="(appState$ | async) as appState" [ngSwitch]="appState.dataState">
+      <ng-container *ngSwitchCase="DataState.LOADING_STATE">
+        <div class="col-md-12 single-note-item text-center">
+          <div class=" spinner-border text-info"></div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="DataState.LOADED_STATE">
+        <ng-container *ngIf="appState.appData.data.beats['content'].length === 0">
+          <div class="col-md-12 text-center my-3">
+            <div class="badge badge-info p-3" style="font-size: 16px; font-weight: 200;">
+              No Beats Are Available At The Moment !!!</div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="appState.appData.data.beats['content'].length > 0">
+          <div class="row">
+            <div class="col-md-4 col-sm-6" *ngFor="let beat of appState.appData.data.beats['content']; let i=index">
+              <mat-card class="mb-3 shadow-sm">
+                <div class="shadow-md">
+                  <img mat-card-img class="mat-card-img" [src]='clientApiUrl+"/"+beat?.artWork'>
+                </div>
+                <mat-card-content>
+                  <audio controls>
+                    <source src="{{ beat?.uri }}" type="audio/ogg">
+                    <source src="{{ beat?.uri }}" type="audio/mpeg">
+                  </audio>
+                  <div class="card-details">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <p class="card-text">{{ beat?.name }}</p>
+                        <small style="color: #46fd35;">{{ beat?.genre.name }}</small>
+                      </div>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary" style=" position: relative;"
+                          (click)="addToCart(beat, 'MP3')">
+                          <i class="fa fa-shopping-cart" style="font-size: 15px; padding-left: 2px;"></i>
+                          <span
+                            style="color: white; font-weight: 500; font-size: 12px; padding-left: 1.8px;">${{beat?.priceMp3.toFixed(2)}}</span>
+                          <sup style="position:absolute;right:0;top: 6px;">
+                            <span class="label label-info"
+                              style="font-size: 9px;background-color: blue; border-color: lightgrey; color: white;padding: 2px;">mp3</span>
+                          </sup>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary"
+                          style="padding: 8px; position: relative;" (click)="addToCart(beat, 'WAV')">
+                          <i class="fa fa-shopping-cart" style="font-size: 15px; padding-left: 2px;"></i>
+                          <span
+                            style="color: white; font-weight: 500; font-size: 12px; padding-left: 1.8px;">${{beat?.priceWav.toFixed(2)}}</span>
+                          <sup style="position:absolute;right:0;top: 6px;">
+                            <span class="label label-warning"
+                              style="font-size: 9px;background-color: orange; border-color: lightgrey; color: white; padding: 2px;">wav</span>
+                          </sup>
+                        </button>
+                        <button type="button" class="btn dropdown-toggle"
+                          style="padding: 4px; background-color: #46fd35; color: white;" data-toggle="dropdown">
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="info/{{beat?.id}}">View Info</a></li>
+                          <li><a href="#">Like</a></li>
+                          <li><a href="#">Comment</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </ng-container>
+
+      </ng-container>
+      <ng-container *ngSwitchCase="DataState.ERROR_STATE">
+        <div class="alert alert-danger p-3">
+          Resource Unavailable, Check Again Later !!!
+        </div>
+      </ng-container>
+    </ng-container>
+    <hr>
+    <ul class="nav nav-pills">
+      <li class="nav-item" *ngFor="let p of pages; let i=index">
+        <a class="nav-link" href="" (click)="setPage(i,$event)" [ngClass]="{'active':i==page}">{{i}}</a>
+      </li>
+    </ul>
+  </div>
+</div>

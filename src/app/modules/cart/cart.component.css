@@ -1,0 +1,27 @@
+@media (max-width: 320px) {
+    h3{
+        font-size: 21px;
+    }
+    .btn.btn-secondary{
+        padding: auto;
+    }
+    .image{
+        display: none;
+    }
+    #view{
+        /* content: url("../../../assets/img/Delete_20px.png"); */
+        display: none;
+    }
+    #view-small{
+        content: url("../../../assets/img/Info_20px_1.png");
+    }
+    #delete{
+        display: none;
+    }
+    #delete-small{
+        content: url("../../../assets/img/Delete_20px.png");
+    }
+    /* table tbody td.img-row{
+        max-width: 150px;
+    } */
+}

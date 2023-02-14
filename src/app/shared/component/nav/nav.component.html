@@ -15,7 +15,7 @@
         <li class="nav-item"  *ngIf="!(isLoggedIn$ | async)">
           <a class="nav-link js-scroll-trigger" id="account" href="account">Sign In</a>
         </li>
-        <li class="nav-item" *ngIf="(isLoggedIn$ | async)">
+        <li class="nav-item" *ngIf="(isLoggedIn$ | async)"> 
           <a class="nav-link js-scroll-trigger" style="cursor: pointer;" (click)="logout()">Logout</a>
         </li>
         <li class="nav-item"> 

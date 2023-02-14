@@ -13,6 +13,7 @@ import { MaterialModule } from './material.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './token-interceptor';
 import { DataTablesModule } from 'angular-datatables';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { DataTablesModule } from 'angular-datatables';
     DataTablesModule,
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FontAwesomeModule
   ],
   providers: [
     {

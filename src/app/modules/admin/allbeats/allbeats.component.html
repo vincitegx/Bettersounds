@@ -7,7 +7,7 @@
             <option value="id" selected>Default Sorting (Date)</option>
             <option value="name">(A-Z) Alphabetical</option>
             <option value="priceMp3">Price</option>
-          </select>
+          </select> 
         </form>
         <form class="form-inline my-2 my-md-0 text-left" [formGroup]="searchForm" (ngSubmit)="setSearch($event)">
           <div class="input-group">
@@ -20,7 +20,6 @@
             </div>
           </div>
         </form>
-        
       </div>
     </div>
 
@@ -42,24 +41,24 @@
           <ng-container *ngIf="appState.appData.data.beats['content'].length > 0">
             <div class="table-responsive">
               <!-- datatable [dtOptions]="dtOptions" -->
-              <table class="table display" width="100%" cellspacing="0">
+              <table class="table table-bordered display" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                     <th>Image</th>
                     <th>Name</th>
                     <th>Price (Mp3/Wav)</th>
                     <th>Orders</th>
-                    <th>Likes</th>
+                    <th>Reactions</th>
                     <th>Comments</th>
                     <th>Actions</th>
                   </tr>
-                </thead>
+                </thead> 
                 <tbody *ngFor="let beat of appState.appData.data.beats['content']; let i=index">
                   <tr>
                     <td><img [src]='adminApiUrl+"/"+beat?.artWork' [alt]="beat?.name" width="40" style="height: fit-content;"></td>
                     <td><a href="admindashboard/viewbeatinfo/{{beat.id}}">{{ beat?.name }}</a></td>
                     <td>${{beat?.priceMp3.toFixed(2)}} | ${{beat?.priceWav.toFixed(2)}}</td>
-                    <td>0</td>
+                    <td><a href="admindashboard/vieworderinfo/{{beat.id}}">{{ orders.length }}</a></td>
                     <td>0</td>
                     <td>0</td>
                     <td>
@@ -82,7 +81,7 @@
     <div class="card-footer">
       <ul class="nav nav-pills">
         <li class="nav-item" *ngFor="let p of pages; let i=index">
-          <a class="nav-link" href="" (click)="setPage(i,$event)" [ngClass]="{'active':i==page}">{{i}}</a>
+          <a class="nav-link" href="#" (click)="setPage(i,$event)" [ngClass]="{'active':i==page}">{{i}}</a>
         </li>
       </ul>
     </div>

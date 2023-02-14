@@ -6,8 +6,6 @@ import { Router } from '@angular/router';
 import { CheckoutService } from 'src/app/service/checkout.service';
 import { Order } from 'src/app/models/order';
 import { BehaviorSubject, Observable, of, Subscription, throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
-import { BeatDto } from 'src/app/dtos/beat-dto';
 import { CartItem } from 'src/app/models/cart-item';
 import { Cart } from 'src/app/models/cart';
 import { Users } from 'src/app/models/users';
@@ -21,6 +19,7 @@ import { catchError, map, startWith } from 'rxjs/operators';
 import { NavbarService } from 'src/app/shared/service/navbar.service';
 import { render } from 'creditcardpayments/creditCardPayments';
 import { environment } from 'src/environments/environment';
+import { Userinfo } from 'src/app/dtos/userinfo';
 
 @Component({
   selector: 'app-checkout',
@@ -30,7 +29,7 @@ import { environment } from 'src/environments/environment';
 export class CheckoutComponent implements OnInit {
 
   clientApiUrl = environment.apiBaseUrl.client;
-  user: Users;
+  userInfo: Userinfo;
   cartItems: CartItem[];
   checkoutFormGroup: FormGroup;
   totalPrice: number;
@@ -39,6 +38,8 @@ export class CheckoutComponent implements OnInit {
   cart: Cart;
   orderDto: OrderDto;
   appState$: Observable<AppState<CustomResponse>>;
+  adminApiUrl = environment.apiBaseUrl.admin;
+  fileurl:string = this.adminApiUrl+"/api/beat/download"
   readonly DataState = DataState;
   private filterSubject = new BehaviorSubject<string>('');
   private dataSubject = new BehaviorSubject<CustomResponse>(null);
@@ -53,7 +54,8 @@ export class CheckoutComponent implements OnInit {
       response => {
         this.isLoggedIn$.next(response);
         if (response) {
-          this.user = this.authService.getUser();
+          this.userInfo = this.authService.getUser();
+          console.log(this.userInfo);
           this.cartItems = this.cartService.cartItems;
           this.totalPrice = this.cartService.gettotalPrice();
           this.dataSubject.next(null);
@@ -77,7 +79,7 @@ export class CheckoutComponent implements OnInit {
         grandTotal: this.cartService.totalPrice1,
         cartItems: this.cartService.cartItems
       },
-      user: this.authService.getUser()
+      userInfo: this.authService.getUser()
     }
     // render(
     //   {

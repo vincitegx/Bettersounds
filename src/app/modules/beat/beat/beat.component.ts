@@ -33,15 +33,15 @@ export class BeatComponent implements OnInit {
   searchForm: FormGroup;
   sortForm: FormGroup;
   property :BehaviorSubject<String>= new BehaviorSubject('Most Recent');
-  appState$:Observable<AppState<CustomResponse>>;
+  appState$:Observable<AppState<CustomResponse>>; 
   showDatalist:boolean;
-  beatType:BeatType;
+  beatType:BeatType; 
   private filterSubject = new BehaviorSubject<string>('');
   private dataSubject = new BehaviorSubject<CustomResponse>(null);
   filterStatus$ =  this.filterSubject.asObservable();
   clientApiUrl = environment.apiBaseUrl.client;
 
-  ngOnInit() {
+  ngOnInit() { 
     this.searchForm = new FormGroup({
       search : new FormControl('', [Validators.required]),
     })
@@ -81,7 +81,12 @@ export class BeatComponent implements OnInit {
       this.beatType = beatType;
     }
     this.cartItem.beatType = this.beatType;
-    this.cartItem.beat = beat;
+    this.cartItem.beatId = beat.id;
+    if(this.cartItem.beatType == BeatType.mp3){
+      this.cartItem.price = beat.priceMp3;
+    }else{
+      this.cartItem.price = beat.priceWav;
+    }
     addedToCart = this.cartService.addToCart(this.cartItem);
     if(addedToCart == true){
       this.toastrService.success('Item has Been Added To Cart');

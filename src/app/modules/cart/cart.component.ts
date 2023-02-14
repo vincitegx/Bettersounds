@@ -2,10 +2,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import { catchError, map, startWith } from 'rxjs/operators';
+import { AppState } from 'src/app/dtos/app-state';
+import { CustomResponse } from 'src/app/dtos/custom-response';
 import { Userinfo } from 'src/app/dtos/userinfo';
 import { BeatType } from 'src/app/enum/beattype.enum';
+import { DataState } from 'src/app/enum/datastate.enum';
 import { CartItem } from 'src/app/models/cart-item';
 import { AuthServiceService } from 'src/app/shared/service/auth-service.service';
 import { CartServiceService } from 'src/app/shared/service/cart-service.service';
@@ -33,7 +36,10 @@ export class CartComponent implements OnInit {
   isLogIn$: BehaviorSubject<boolean>;
   readonly BeatType = BeatType;
   user: Userinfo;
-  clientApiUrl = environment.apiBaseUrl.client;
+  adminApiUrl = environment.apiBaseUrl.admin;
+  fileurl:string = this.adminApiUrl+"/api/beat/download"
+  // cartState$: Observable<AppState<CustomResponse>>;
+  readonly DataState = DataState;
   constructor(private cartService: CartServiceService,
     private authService: AuthServiceService,
     private toastrService: ToastrService) {
@@ -46,6 +52,11 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.cartItems = this.cartService.cartItems;
+    // this.cartState$ = this.items$.pipe(
+    //   map(response => { return { dataState: DataState.LOADED_STATE, appData: response } }),
+    //   startWith({ dataState: DataState.LOADING_STATE }),
+    //   catchError((error: string) => { return of({ dataState: DataState.ERROR_STATE, error }) })
+    // );
     this.totalPrice = this.cartService.gettotalPrice();
     this.totalItems = this.cartItems.length;
     this.isLoginSub$ = this.authService.isLoggedInClient$.subscribe(

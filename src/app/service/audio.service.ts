@@ -1,24 +1,41 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { StreamState } from '../dtos/streamstate';
 import { Beat } from '../models/beat';
+import { StreamState } from '../models/stream-state';
 import * as moment from "moment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AudioService {
+  clientApiUrl = environment.apiBaseUrl.client;
+  setState(streamState: StreamState){
+    this.state = streamState;
+  }
 
-  private date: Date;
   private stop$ = new Subject();
   private audioObj = new Audio();
   beat: Beat;
+  playing: boolean = false;
+  paused: boolean = false;
+  readableCurrentTime: string = '';
+  readableDuration: string = '';
+  durationText: string;
+  duration: number = 0;
+  currentTime: number = 0;
+  canplay: boolean = false;
+  error: boolean = false;
+  audio: AudioBuffer;
+  musicPlayPauseIcon: any;
+  musicStopIcon: any;
+  playSound: AudioBufferSourceNode;
+  ctx: AudioContext;
   private readonly adminApiServerUrl = environment.apiBaseUrl.admin;
-  clientApiServerUrl = environment.apiBaseUrl.client;
   private state: StreamState = {
     playing: false,
+    paused: false,
     readableCurrentTime: '',
     readableDuration: '',
     duration: undefined,
@@ -32,12 +49,13 @@ export class AudioService {
   private resetState() {
     this.state = {
       playing: false,
+      paused: false,
       readableCurrentTime: '',
       readableDuration: '',
       duration: undefined,
       currentTime: undefined,
       canplay: false,
-      error: false
+      error: false,
     };
   }
 
@@ -72,7 +90,11 @@ export class AudioService {
     this.stateChange.next(this.state);
   }
 
-  constructor() { }
+  constructor() {
+    AudioContext = (window as any).AudioContext || (window as any).webkitAudioContext;
+    this.ctx = new AudioContext();
+    // this.state.setAudio(this.beat);
+  }
 
   audioEvents = [
     "ended",
@@ -85,52 +107,6 @@ export class AudioService {
     "loadedmetadata",
     "loadstart"
   ];
-
-  initializeState(beats: Beat[]) {
-    let newbeat = Array<Beat>();
-    // let evt: HTMLMediaElement;
-
-    for (this.beat of beats) {
-      // evt = new HTMLMediaElement();
-      // evt.src = this.clientApiServerUrl+"/"+this.beat.uri;
-      this.audioObj.src = this.clientApiServerUrl + "/" + this.beat.uri;
-      this.audioObj.load();
-      this.beat.streamState.canplay = true;
-      this.beat.streamState.playing = false;
-      this.beat.streamState.duration = this.audioObj.duration;
-      this.beat.streamState.currentTime = this.audioObj.currentTime;
-      this.beat.streamState.readableDuration = this.formatTime(this.state.duration);
-    }
-    newbeat.push(this.beat);
-    // return new Observable(observer => {
-    //   this.audioObj.src = this.clientApiServerUrl+"/"+this.beat.uri;
-    //   this.audioObj.load();
-    //   this.audioObj.play();
-    //   console.log()
-    //   const handler = (event: Event) => {
-    //     this.updateStateEvents(event);
-    //     observer.next(event);
-    //   };
-
-    //   this.addEvents(this.audioObj, this.audioEvents, handler);
-    // });
-    // let newbeat = Array<Beat>();
-    // for(this.beat of beats){
-    //   this.audioObj = new Audio();
-    //   this.audioObj.src = this.clientApiServerUrl+"/"+this.beat.uri;
-    //   this.beat.streamState = {
-    //     playing: false,
-    //     readableCurrentTime: this.audioObj.currentTime.toString(),
-    //     readableDuration: this.audioObj.duration.toString(),
-    //     duration: this.audioObj.duration,
-    //     currentTime: this.audioObj.currentTime,
-    //     canplay: true,
-    //     error: false
-    //   }; 
-    //   newbeat.push(this.beat);
-    // }
-    return newbeat;
-  }
 
   private streamObservable(url: string) {
     return new Observable(observer => {
@@ -183,6 +159,7 @@ export class AudioService {
 
   stop() {
     this.stop$.next();
+    this.resetState();
   }
 
   seekTo(seconds) {
@@ -198,12 +175,12 @@ export class AudioService {
   formatTimes = (time) => {
     let min: any = Math.floor(time / 60);
     if (min < 10) {
-      min = `0${min}`;
+      min = `${min}`;
     }
     let sec: any = Math.floor(time % 60);
     if (sec < 10) {
       sec = `0${sec}`;
     }
-    return `${min} : ${sec}`;
+    return `${min}:${sec}`;
   }
 }

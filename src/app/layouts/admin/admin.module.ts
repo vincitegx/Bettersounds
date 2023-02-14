@@ -18,6 +18,7 @@ import { ViewbeatinfoComponent } from 'src/app/modules/admin/viewbeatinfo/viewbe
 import { MaterialModule } from 'src/app/material.module';
 import { DataTablesModule } from 'angular-datatables';
 import { TokenInterceptor } from 'src/app/token-interceptor';
+import { OrderComponent } from 'src/app/modules/admin/order/order.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TokenInterceptor } from 'src/app/token-interceptor';
     AllbeatsComponent,
     AddbeatComponent,
     UpdatebeatComponent,
-    ViewbeatinfoComponent
+    ViewbeatinfoComponent,
+    OrderComponent,
   ],
   imports: [
     CommonModule,

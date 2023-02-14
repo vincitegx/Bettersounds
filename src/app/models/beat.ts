@@ -18,10 +18,11 @@ export class Beat {
     beatKey: BeatKey;
     mood: Mood;
     genre:Genre;
-    mainCreator?:string;
-    contributingCreators?: ContributingCreators[];
+    // mainCreator?:string;
+    // contributingCreators?: ContributingCreators[];
     purchaseFile?:PurchaseFile;
+    // free?:boolean;
     postedDate?: Date;
-    modifiedDate?: Date;
+    // modifiedDate?: Date;
     streamState?: StreamState;
 }

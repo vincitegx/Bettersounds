@@ -18,49 +18,52 @@
             </h4>
             <hr>
             <ng-template [ngIf]="totalItems > 0" [ngIfElse]="none">
-              <table class="table table-striped">
-                <tbody>
-                  <tr *ngFor="let cartItem of cartItems">
-                    <td class="image">
-                      <img [src]='clientApiUrl+"/"+cartItem?.beat.artWork' alt="artwork" height="40" width="45">
-                    </td>
-                    <td id="name" scope="row" style="color: #000; padding-top: 20px;">
-                      {{ cartItem?.beat.name }}
-                    </td>
-                    <td style="color: #000; padding-top: 20px;">${{ cartItem?.beatType == 'MP3' ?
-                      cartItem?.beat.priceMp3.toFixed(2)  : cartItem?.beat.priceWav.toFixed(2) }}
-                    </td>
-                    <td>
-                      <span class="badge p-2" style="color: white; margin-top: 6px;" [ngClass]="[cartItem.beatType === BeatType.mp3 ? ' badge-primary': ' badge-warning']">{{cartItem?.beatType}}</span>
-                    </td>
-                    <!-- <td>
-                      <input type="number" ngModel="{{cartItem?.qty}}" min="1" (ngModelChange)="onCartQtyChanged(cartItem, $event)" name="qty" class="form-control" id="qty" aria-describedby="emailHelp" placeholder="Quantity">
-                    </td> -->
-                    <td>
-                      <div id="view-small"></div>
-                      <a id="view" href="/info/{{cartItem?.beat.id}}" class="btn btn-block btn-info text-white">
-                        View Details
-                      </a>
-                    </td>
-                    <td>
-                      <div id="delete-small"></div>
-                      <button id="delete" (click)="removeItemFromCart(cartItem)" class="btn btn-block btn-danger">
-                        Remove From Cart
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="image"></td>
-                    <th scope="row">Total</th>
-                    <td><b>${{ totalPrice.toFixed(2)}}</b></td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <tbody>
+                    <tr *ngFor="let cartItem of cartItems">
+                      <td class="image">
+                        <img [src]='fileurl+"/"+cartItem?.beat?.artWork' alt="artwork" height="40" width="45">
+                      </td>
+                      <td id="name" scope="row" style="color: #000; padding-top: 20px;">
+                        {{ cartItem?.beat?.name }}
+                      </td>
+                      <td style="color: #000; padding-top: 20px;">${{ cartItem?.beatType == 'MP3' ?
+                        cartItem?.beat?.priceMp3.toFixed(2)  : cartItem?.beat?.priceWav.toFixed(2) }}
+                      </td>
+                      <td>
+                        <span class="badge p-2" style="color: white; margin-top: 6px;" [ngClass]="[cartItem.beatType === BeatType.mp3 ? ' badge-primary': ' badge-warning']">{{cartItem?.beatType}}</span>
+                      </td>
+                      <!-- <td>
+                        <input type="number" ngModel="{{cartItem?.qty}}" min="1" (ngModelChange)="onCartQtyChanged(cartItem, $event)" name="qty" class="form-control" id="qty" aria-describedby="emailHelp" placeholder="Quantity">
+                      </td> -->
+                      <td>
+                        <div id="view-small"></div>
+                        <a id="view" href="/info/{{cartItem?.beat?.id}}" class="btn btn-block btn-info text-white">
+                          Details
+                        </a>
+                      </td>
+                      <td>
+                        <div id="delete-small"></div>
+                        <button id="delete" (click)="removeItemFromCart(cartItem)" class="btn btn-block btn-danger">
+                          Remove
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="image"></td>
+                      <th scope="row">Total</th>
+                      <td><b>${{ totalPrice.toFixed(2)}}</b></td>
+                      <td>
+                      </td>
+                      <td>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
             </ng-template>
             <ng-template #none>
               You Have No Item In Cart

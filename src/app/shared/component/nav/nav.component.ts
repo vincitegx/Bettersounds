@@ -35,12 +35,12 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (window.location.pathname == "/") {
-      document.getElementById("home").style.color = "#45fe34";
-    }
-    if (window.location.pathname == "/beats") {
-      document.getElementById("beats").style.color = "#45fe34";
-    }
+    // if (window.location.pathname == "/") {
+    //   document.getElementById("home").style.color = "#45fe34";
+    // }
+    // if (window.location.pathname == "/beats") {
+    //   document.getElementById("beats").style.color = "#45fe34";
+    // }
     this.isLoggedInSub$ = this.authService.isLoggedInClient$.subscribe(
       response => {
         this.isLoggedIn$.next(response);
@@ -49,7 +49,6 @@ export class NavComponent implements OnInit, OnDestroy {
         }
       }
     );
-    // this.authService.loggedIn.subscribe((data: boolean) => this.isLoggedIn$.next(data));
     this.authService.user.subscribe((data: Userinfo) => this.user = data);
   }
 
@@ -58,12 +57,12 @@ export class NavComponent implements OnInit, OnDestroy {
       subscriber => {
         if (subscriber.data.taskStatus) {
           this.isLoggedIn$.next(false);
-          this.localStorage.clear('cartitems');
+          // this.localStorage.clear('cartitems');
           this.localStorage.clear('authtoken');
           this.localStorage.clear('user');
           this.localStorage.clear('refreshtoken');
           this.localStorage.clear('expiresat');
-          this.toastr.success('You Have Been Logged Out Successfully !!!');
+          this.toastr.success('You Have Been Logged Out !!!');
           this.router.navigateByUrl('/');
         }
       }

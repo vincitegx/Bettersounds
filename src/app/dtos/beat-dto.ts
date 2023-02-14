@@ -17,10 +17,11 @@ export interface BeatDto {
     description:string;
     beatKey: BeatKey;
     mood: Mood;
-    genre:Genre[];
+    genre:Genre;
     mainCreator?:string;
-    contributingCreators?: ContributingCreators[];
+    // contributingCreators?: ContributingCreators[];
     purchaseFile?:PurchaseFile;
+    // free?:boolean;
     postedDate?: Date;
-    modifiedDate?: Date;
+    // modifiedDate?: Date;
 }

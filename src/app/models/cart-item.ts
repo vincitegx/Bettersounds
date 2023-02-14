@@ -6,7 +6,9 @@ export class CartItem {
     id: number;
     qty: number;
     subTotal:number;
+    price:number;
     beat: Beat;
+    beatId:Number;
     beatType?: BeatType;
     licenseUri?: string;
 

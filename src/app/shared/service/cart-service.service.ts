@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { LocalStorageService } from 'ngx-webstorage';
-import { map, take } from 'rxjs/operators';
+import { catchError, map, take, tap } from 'rxjs/operators';
 import { CartItem } from 'src/app/models/cart-item';
 import { BeatDto } from 'src/app/dtos/beat-dto';
 import { HttpClient } from '@angular/common/http';
@@ -9,12 +9,15 @@ import { environment } from 'src/environments/environment';
 import { BeatType } from 'src/app/enum/beattype.enum';
 import { AuthServiceService } from './auth-service.service';
 import { Userinfo } from 'src/app/dtos/userinfo';
+import { BeatServiceService } from './beat-service.service';
+import { CustomResponse } from 'src/app/dtos/custom-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartServiceService {
   cartItems: CartItem[];
+  beatIds: Number[];
   totalPrice1: number;
   cartItemPrice: number;
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
@@ -22,18 +25,35 @@ export class CartServiceService {
   username: BehaviorSubject<string> = new BehaviorSubject<string>('');
   itemsSubject = new BehaviorSubject<CartItem[]>([]);
   items$ = this.itemsSubject.asObservable();
+  beatItemsSubject = new BehaviorSubject<CartItem[]>([]);
+  beatItems$ = this.beatItemsSubject.asObservable();
   alreadyExistInCart: boolean = false;
   existingCartItem: CartItem;
+  beat: Observable<CustomResponse>;
 
-  constructor(private localStorageService: LocalStorageService) {
+  constructor(private localStorageService: LocalStorageService,
+    private beatService: BeatServiceService) {
     this.cartItems = JSON.parse(localStorageService.retrieve('cartitems'));
     if (!this.cartItems) {
-      this.cartItems = []
+      this.cartItems = [];
       this.totalPrice1 = 0;
+    } else {
+      this.cartItems = this.getBeatsByIds(this.cartItems);
     }
     this.totalPrice1 = this.gettotalPrice();
     this.itemsSubject.next(this.cartItems);
-  }  
+  }
+
+  getBeatsByIds(cartItems: CartItem[]): CartItem[] {
+    cartItems.forEach(cartItem => {
+      this.beatService.getBeat$(cartItem.beatId).subscribe(
+        (response)=>{
+          cartItem.beat = response.data.beat;
+        }
+      );
+    })
+    return cartItems;
+  }
 
   addToCart(cartItem: CartItem): boolean {
     let added = false;
@@ -41,7 +61,7 @@ export class CartServiceService {
     if (this.cartItems.length > 0) {
       let i;
       for (i in this.cartItems) {
-        if (cartItem.beat.id == this.cartItems[i].beat.id && cartItem.beatType == this.cartItems[i].beatType) {
+        if (cartItem.beatId == this.cartItems[i].beatId && cartItem.beatType == this.cartItems[i].beatType) {
           addedbefore = true;
           break;
         }
@@ -89,11 +109,7 @@ export class CartServiceService {
     let i;
     let a = 0;
     for (i in this.cartItems) {
-      if (this.cartItems[i].beatType == BeatType.mp3) {
-        this.totalPrice1 += this.cartItems[i].beat.priceMp3 * this.cartItems[i].qty;
-      } else {
-        this.totalPrice1 += this.cartItems[i].beat.priceWav * this.cartItems[i].qty;
-      }
+      this.totalPrice1 += this.cartItems[i].price * this.cartItems[i].qty;
     }
     return this.totalPrice1;
   }
@@ -103,7 +119,7 @@ export class CartServiceService {
       this.localStorageService.clear('cartitems');
       let i;
       for (i in this.cartItems) {
-        if (cartItem.beat.id == this.cartItems[i].beat.id) {
+        if (cartItem.beat == this.cartItems[i].beat) {
           this.cartItems.splice(i, 1)
           this.localStorageService.store('cartitems', JSON.stringify(this.cartItems));
           break;

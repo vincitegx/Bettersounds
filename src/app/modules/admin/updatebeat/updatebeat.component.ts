@@ -59,7 +59,8 @@ export class UpdatebeatComponent implements OnInit {
       genre: {
         id: null,
         name: ''
-      }
+      },
+      // free:false
     };
   }
 
@@ -128,8 +129,12 @@ export class UpdatebeatComponent implements OnInit {
     this.beat.beatKey = { id: this.updateBeatForm.get('beatKey').value };
     this.beat.mood = { id: this.updateBeatForm.get('mood').value };
     this.beat.genre = { id: this.updateBeatForm.get('genre').value };
-    this.beat.mainCreator = 'David Tega';
-    
+    // this.beat.mainCreator = 'David Tega';
+    // if(this.beat.priceMp3 > 0){
+    //   this.beat.free = false;
+    // }else{
+    //   this.beat.free = true;
+    // }
     const formData = new FormData();
     formData.append('beatDto', JSON.stringify(this.beat));
     formData.append('artWork', this.artWork);

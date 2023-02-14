@@ -1,0 +1,107 @@
+<div class="car__item card">
+    <div class="card-body" style="padding: 0;margin: 0;" *ngIf="(streamState$ | async) as streamstate">
+        <div class="car__item__pic__slider">
+            <!-- class="img-fluid d-block mx-auto" -->
+            <img [src]='fileurl+"/"+beat?.artWork' id="artwork" alt="artwork" height="150px" width="100%">
+            <div class="car-option">
+                <div class="d-flex justify-content-center align-items-center">
+                    <!-- <button (click)="playBeat(beat)" [disabled]="!(streamstate.playing || streamstate.paused)" [ngClass]="[streamstate.playing ? 'active' : 'disabled']" type="button"><span [ngClass]="[streamstate.playing ? ' fa-pause-circle' : ' fa-play-circle']" class="fa"></span></button> -->
+                    <button (click)="playBeat(beat)" type="button">
+                        <fa-icon [icon]="musicPlayPauseIcon"></fa-icon>
+                    </button>
+                    <fa-icon (click)="stopBeat(beat)" [ngClass]="setClass(beat)" [icon]="musicStopIcon"></fa-icon>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="slider-component">
+            <div class="song-slider">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="current-time">{{ streamstate?.readableCurrentTime }}</span>
+                    <input type="range" min="0" [max]="streamstate?.duration" (input)="onSliderChangeEnd($event)"
+                        [value]="streamstate?.currentTime">
+                    <span class="song-duration">{{ streamstate?.readableDuration }}</span>
+                </div>
+            </div>
+        </div> -->
+        <div class="slider-component">
+            <div class="song-slider">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="current-time">{{ currentTimeText }}</span>
+                    <input type="range" min="0" [max]="duration" (input)="onSliderChangeEnd($event)"
+                        [value]="currentTime">
+                    <span class="song-duration">{{ durationText }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-details d-flex justify-content-between align-items-center">
+            <div>
+                <p class="card-text">{{ beat?.name}}</p>
+                <small>{{ beat?.genre.name}}</small>
+                &nbsp; | <small>{{beat?.mood.name}}</small>
+                &nbsp; | <small>{{ beat?.beatKey.name }}</small>
+            </div>
+            <!-- <div class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"  data-target="#drop" aria-controls="drop">
+                    <span class="fa fa-ellipsis-v dropdown" style="color: silver;"></span>
+                </a>
+                <ul class="dropdown-menu" id="drop">
+                    <li><a href="#">Page 1-1</a></li>
+                    <li><a href="#">Page 1-2</a></li>
+                    <li><a href="#">Page 1-3</a></li>
+                </ul>
+            </div> -->
+        </div>
+        <!-- <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+            </div>
+            <small class="text-muted">9 mins</small>
+          </div> -->
+        <div id="cartbtns" >
+            <div class="btn-group d-flex justify-content-between align-items-center">
+                <button class="btn mp3btn" (click)="addToCart(beat, 'MP3')">
+                    <i class="fa fa-shopping-cart"></i>&nbsp;
+                    <span>${{beat?.priceMp3.toFixed(2)}}</span>
+                    <sup><span class="label label-info">mp3</span></sup>
+                </button>
+                <button class="btn wavbtn" (click)="addToCart(beat, 'WAV')">
+                    <i class="fa fa-shopping-cart"></i>&nbsp;
+                    <span>${{beat?.priceWav.toFixed(2)}}</span>
+                    <sup><span class="label label-warning">wav</span></sup>
+                </button>
+            </div>
+        </div>
+        <!-- <div id="cartbtns">
+            <ng-container *ngIf="!(beat?.priceMp3 == 0)">
+                <div class="row"> 
+                    <div class="col-md-6 mp3btn">
+                        <button class="btn btn-block" (click)="addToCart(beat, 'MP3')">
+                            <i class="fa fa-shopping-cart"></i>&nbsp;
+                            <span>${{beat?.priceMp3.toFixed(2)}}</span>
+                            <sup><span class="label label-info">mp3</span></sup>
+                        </button>
+                    </div>
+                    <div class="col-md-6 wavbtn">
+                        <button class="btn btn-block" (click)="addToCart(beat, 'WAV')">
+                            <i class="fa fa-shopping-cart"></i>&nbsp;
+                            <span>${{beat?.priceWav.toFixed(2)}}</span>
+                            <sup><span class="label label-warning">wav</span></sup>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="beat?.priceMp3 == 0">
+                <div class="row"> 
+                    <div class="col-md-12 mp3btn">
+                        <button class="btn btn-block" (click)="addToCart(beat, 'MP3')">
+                            <i class="fa fa-shopping-cart"></i>&nbsp;
+                            <span>${{beat?.priceMp3.toFixed(2)}}</span>
+                            <sup><span class="label label-info">mp3</span></sup>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>            
+        </div> -->
+    </div>
+</div>

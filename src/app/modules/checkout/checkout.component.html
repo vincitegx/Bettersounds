@@ -25,11 +25,11 @@
                         <tbody>
                             <tr *ngFor="let cartItem of cartItems">
                                 <td>
-                                    <img [src]='clientApiUrl+"/"+cartItem?.beat.artWork' alt="artwork" alt="Cinque Terre" width="40" style="height: fit-content;">
+                                    <img [src]='fileurl+"/"+cartItem?.beat?.artWork' alt="artwork" alt="Cinque Terre" width="40" style="height: fit-content;">
                                 </td>
-                                <td scope="row">{{ cartItem?.beat.name }}</td>
+                                <td scope="row">{{ cartItem?.beat?.name }}</td>
                                 <td scope="row">{{ cartItem?.beatType }}</td>
-                                <td>${{ cartItem?.beatType == 'MP3' ? cartItem?.beat.priceMp3.toFixed(2): cartItem?.beat.priceWav.toFixed(2) }}</td>
+                                <td>${{ cartItem?.beatType == 'MP3' ? cartItem?.beat?.priceMp3.toFixed(2): cartItem?.beat?.priceWav.toFixed(2) }}</td>
                                 <td>
                                     {{cartItem?.qty}}
                                 </td>

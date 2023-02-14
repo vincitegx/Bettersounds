@@ -1,0 +1,44 @@
+<section class="page-section">
+    <div class="container">
+        <h2 class="text-left">Most Recent Beats</h2>
+        <hr class="divider my-4" />
+        <ng-container *ngIf="(recentBeatState$ | async) as appState" [ngSwitch]="appState.dataState">
+            <ng-container *ngSwitchCase="DataState.LOADING_STATE">
+                <div class="col-md-12 single-note-item text-center">
+                    <div class="spinner-border text-primary"></div>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="DataState.LOADED_STATE">
+                <ng-container *ngIf="appState.appData.data.beats['content'].length === 0">
+                    <div class="alert alert-secondary p-3 text-left">
+                        No Beats Are Available At The Moment !!!
+                    </div>
+                    <!-- <div class="col-md-12">
+                        
+                        <div class="badge badge-info p-3" style="font-size: 16px; font-weight: 200;">
+                            No Beats Are Available At The Moment !!!
+                        </div>
+                    </div> -->
+                </ng-container>
+                <ng-container *ngIf="appState.appData.data.beats['content'].length > 0">
+                    <div class="row car-filter">
+                        <app-audio-player [beat]="beat" class="col-lg-3 col-md-4 col-sm-6"
+                            *ngFor="let beat of appState.appData.data.beats['content']; let i=index">
+                        </app-audio-player>
+                    </div>
+                    <div class="row align-items-center justify-content-center mt-2">
+                        <div class="align-self-baseline pt-2 col-md-12 text-center">
+                            <a class="btn btn-light btn-xl js-scroll-trigger text-uppercase" href="beats">Check Out
+                                More</a>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="DataState.ERROR_STATE">
+                <div class="alert alert-danger p-3">
+                    Resource Unavailable, Check Again Later !!!
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+</section>

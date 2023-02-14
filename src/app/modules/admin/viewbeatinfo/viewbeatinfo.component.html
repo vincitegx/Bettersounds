@@ -36,8 +36,8 @@
               <h3>{{beat?.name}}</h3>
               <div class="row">
                 <div class="col-6">
-                  <p><strong>Main Creator: </strong><span>{{ beat?.mainCreator }}</span></p>
-                  <p><strong>Price (mp3): </strong><span>${{beat?.priceMp3.toFixed(2)}}</span></p>
+                  <p><strong>Main Creator: </strong><span>David Tega</span></p>
+                  <p><strong>Price (.mp3): </strong><span>${{beat?.priceMp3.toFixed(2)}}</span></p>
 
                   <p><strong>BPM: </strong><span>{{beat?.tempo}}</span></p>
                   <p><strong>Beat Key: </strong><span>{{beat?.beatKey.name}}</span></p>
@@ -56,11 +56,11 @@
                   <p><strong>Price (.wav): </strong><span>${{beat?.priceWav.toFixed(2)}}</span></p>
 
                   <p><strong>Mood: </strong><span>{{beat?.mood.name}}</span></p>
-                  <p><strong>Contributing Creators: </strong>
+                  <!-- <p><strong>Contributing Creators: </strong>
                     <span>{{ beat?.contributingCreators.length == 0 ? 'None' : beat?.contributingCreators}}</span>
-                  </p>
+                  </p> -->
 
-                  <p><strong>Modified Date: </strong><span>{{ beat?.modifiedDate}}</span></p>
+                  <!-- <p><strong>Modified Date: </strong><span>{{ beat?.modifiedDate}}</span></p> -->
                   <p><strong>Tagged Wav: </strong>
                     <audio controls>
                       <source src="{{ beat?.purchaseFile.wavUri }}" type="audio/ogg">

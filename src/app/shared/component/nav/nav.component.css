@@ -12,7 +12,10 @@
     text-transform:uppercase;
     color: #45fe34;
     font-weight: 600;
-    letter-spacing: 0.0625em;
+    letter-spacing: 0.0625em;    
+}
+.navbar-custom a, .navbar-custom a:hover{
+    border: 0;
 }
 .navbar-collapse .btn{
     font-size: 0.95rem;
@@ -36,11 +39,17 @@
     color: #fff;
     text-transform: uppercase;
     background-color:hsl(115, 99%, 60%);
-    border: 0;
+    border: hsl(115, 99%, 60%);
   }
 #navbarResponsive ul li a img{
     position: absolute; 
     margin-top: 2px;
+}
+a:active{
+    color : "#45fe34";
+}
+a:current{
+    color : "#45fe34";
 }
 #navbarResponsive ul li a span{
     color: white;

@@ -1,0 +1,89 @@
+.page-section {
+    padding: 3rem 0;
+}
+
+.btn-xl {
+  background-color: #45fe34;
+  border-color: rgba(69, 253, 52, 0.486);
+  color: white;
+  padding: 1.25rem 2.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 10rem;
+}
+
+@media (max-width: 320px) {
+  
+    h1{
+      font-size: 26px;
+    }
+    h2{
+      font-size: 20px;
+    }
+    h3{
+      font-size: 18px;
+    }
+    h4{
+      font-size: 14px;
+    }
+    hr{
+      max-width: 300px;
+    }
+    p{
+      font-size: 13.5px;
+    }
+    #cartbtns .mp3btn{
+      padding-right: auto;
+    }
+    #cartbtns .wavbtn{
+      padding-left: auto;
+    }
+  }
+  @media (max-width: 375px) {
+    h1{
+      font-size: 30px;
+    }
+    p{
+      font-size: 15px;
+    }
+    #cartbtns .mp3btn{
+      padding-right: 15px;
+    }
+    #cartbtns .wavbtn{
+      padding-left: 15px;
+    }
+  }
+  @media (max-width: 425px) {
+    
+    h1{
+      font-size: 30px;
+    }
+    p{
+      font-size: 15px;
+    }
+  }
+  @media (max-width: 768px) {
+  }
+  @media (max-width: 1024px) {
+  }
+  @media (min-width: 992px) {
+    header.masthead {
+      height: 100vh;
+      min-height: 40rem;
+      padding-top: 4.5rem;
+      padding-bottom: 0;
+    }
+    header.masthead p {
+      font-size: 1.15rem;
+    }
+    header.masthead h1 {
+      font-size: 3rem;
+    }
+  }
+  @media (min-width: 1200px) {
+    header.masthead h1 {
+      font-size: 3.5rem;
+    }
+  }

@@ -1,0 +1,244 @@
+.car__item {
+  background-color: black;
+}
+
+.slider-component {
+  padding: 8px;
+  color: white;
+}
+
+.slider-component input {
+  color: #5cfe34;
+}
+
+#artwork {
+  max-width: 320px;
+  border: 0;
+  position: relative;
+  object-fit: cover;
+  transition: all ease 0.4s;
+}
+
+.current-time,
+.song-duration {
+  font-size: 10px;
+  padding: 0 4px;
+}
+.card-details {
+  padding: 0 10px;
+}
+
+.card-details p {
+  margin: 0;
+  padding: 0;
+}
+
+.card-details small {
+  color: silver;
+  font-size: 10px;
+}
+
+/* #cartbtns .mp3btn {
+  padding-right: 0;
+} */
+
+#cartbtns .mp3btn {
+  background-color: #5cfe34;
+  border-radius: 0%;
+  position: relative;
+}
+
+#cartbtns .mp3btn i {
+  font-size: 15px;
+  color: gray;
+}
+
+#cartbtns .mp3btn span {
+  color: white;
+  font-weight: 500;
+  font-size: 12px;
+}
+#cartbtns .mp3btn sup{
+  position:absolute;
+  right:0;
+  top: 6px;
+}
+#cartbtns .mp3btn sup span{
+  font-size: 9px;
+  border-color: lightgrey; 
+  color: white;
+  padding: 2px;
+}
+
+/* #cartbtns .wavbtn {
+  padding-left: 0;
+} */
+
+#cartbtns .wavbtn {
+  background-color: #221F1F;
+  border-radius: 0%;
+  position: relative;
+}
+
+#cartbtns .wavbtn i {
+  font-size: 15px;
+  color: gray;
+}
+
+#cartbtns .wavbtn span {
+  color: white;
+  font-weight: 500;
+  font-size: 12px;
+}
+#cartbtns .wavbtn sup{
+  position:absolute;
+  right:0;
+  top: 6px;
+}
+#cartbtns .wavbtn sup span{
+  font-size: 9px;
+  border-color: lightgrey; 
+  color: white;
+  padding: 2px;
+}
+
+.card-text {
+  letter-spacing: 0px;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 0;
+  color: #46fd35;
+}
+
+.car__item {
+  margin-bottom: 30px;
+  border: 1px solid #ebebeb;
+}
+
+.car__item__pic__slider img {
+  border-radius: 2px 2px 0 0;
+}
+.car-option {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 0;
+}
+.car-option button{
+  width:fit-content; 
+  padding: 0; 
+  background-color: transparent;
+  border: none;
+  margin: 8px;
+}
+fa-icon{
+  padding-right: 8px;
+}
+.active{
+  cursor: pointer;
+}
+.disabled{
+  cursor: not-allowed;
+  opacity:0.3;
+  pointer-events:none;
+  box-shadow:none
+}
+.car-option button span,.car-option fa-icon{
+  color: silver;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+@media (max-width: 320px) {
+
+  h1 {
+    font-size: 26px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  h4 {
+    font-size: 14px;
+  }
+
+  hr {
+    max-width: 300px;
+  }
+
+  p {
+    font-size: 13.5px;
+  }
+
+  #cartbtns .mp3btn {
+    padding-right: auto;
+  }
+
+  #cartbtns .wavbtn {
+    padding-left: auto;
+  }
+}
+
+@media (max-width: 375px) {
+  h1 {
+    font-size: 30px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  #cartbtns .mp3btn {
+    padding-right: 15px;
+  }
+
+  #cartbtns .wavbtn {
+    padding-left: 15px;
+  }
+}
+
+@media (max-width: 425px) {
+
+  h1 {
+    font-size: 30px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (min-width: 992px) {
+  header.masthead {
+    height: 100vh;
+    min-height: 40rem;
+    padding-top: 4.5rem;
+    padding-bottom: 0;
+  }
+
+  header.masthead p {
+    font-size: 1.15rem;
+  }
+
+  header.masthead h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  header.masthead h1 {
+    font-size: 3.5rem;
+  }
+}

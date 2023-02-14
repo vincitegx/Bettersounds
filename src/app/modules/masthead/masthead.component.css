@@ -1,0 +1,84 @@
+header.masthead {
+    padding-top: 10rem;
+    padding-bottom: calc(10rem - 4.5rem);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.753) 0%, rgba(69, 253, 52, 0.486) 100%), url("../../../assets/img/dylan-mcleod-VRdZBLqnoMU-unsplash.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+}
+
+header.masthead p {
+    color: #ddd
+}
+
+.btn-xl-special {
+    background-color: rgba(69, 253, 52, 0.486);
+    border-color: rgba(69, 253, 52, 0.486);
+    color: white;
+    padding: 1.25rem 2.25rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 10rem;
+}
+
+@media (max-width: 320px) {
+
+    h1 {
+        font-size: 26px;
+    }
+
+    p {
+        font-size: 13.5px;
+    }
+}
+
+@media (max-width: 375px) {
+    h1 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 425px) {
+
+    h1 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {}
+
+@media (max-width: 1024px) {}
+
+@media (min-width: 992px) {
+    header.masthead {
+        height: 100vh;
+        min-height: 40rem;
+        padding-top: 4.5rem;
+        padding-bottom: 0;
+    }
+
+    header.masthead p {
+        font-size: 1.15rem;
+    }
+
+    header.masthead h1 {
+        font-size: 3rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    header.masthead h1 {
+        font-size: 3.5rem;
+    }
+}

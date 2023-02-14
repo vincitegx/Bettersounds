@@ -1,0 +1,121 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <form>
+            <select class="form-control" name="sort" (change)="setSort($event)">
+              <option value="id" selected>Default Sorting (Date)</option>
+              <option value="name">(A-Z) Alphabetical</option>
+              <option value="priceMp3">Price</option>
+            </select> 
+          </form>
+          <form class="form-inline my-2 my-md-0 text-left" [formGroup]="searchForm" (ngSubmit)="setSearch($event)">
+            <div class="input-group">
+              <input class="form-control" type="text" name="search" [formControlName]="'search'"
+                placeholder="Search Name..." aria-label="Search">
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-secondary">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+          
+        </div>
+      </div>
+  
+      <div class="card-body" id="main-container">
+        <ng-container *ngIf="(appState$ | async) as appState" [ngSwitch]="appState.dataState">
+          <ng-container *ngSwitchCase="DataState.LOADING_STATE">
+            <div class="col-md-12 single-note-item text-center">
+              <div class=" spinner-border text-info"></div>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="DataState.LOADED_STATE">
+            <ng-container *ngIf="appState.appData.data.beats['content'].length === 0">
+              <div class="col-md-12 text-center my-3">
+                <div class="badge badge-info p-3" style="font-size: 16px; font-weight: 200;">
+                  No Beats Uploaded !!!
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="appState.appData.data.beats['content'].length > 0">
+              <div class="table-responsive">
+                <!-- datatable [dtOptions]="dtOptions" -->
+                <table class="table table-bordered display" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Image</th>
+                      <th>Name</th>
+                      <th>Format (Mp3/Wav)</th>
+                      <th>User</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead> 
+                  <tbody *ngFor="let beat of appState.appData.data.beats['content']; let i=index">
+                    <tr>
+                      <td><img [src]='adminApiUrl+"/"+beat?.artWork' [alt]="beat?.name" width="40" style="height: fit-content;"></td>
+                      <td><a href="admindashboard/viewbeatinfo/{{beat.id}}">{{ beat?.name }}</a></td>
+                      <td>${{beat?.priceMp3.toFixed(2)}} | ${{beat?.priceWav.toFixed(2)}}</td>
+                      <td><a href="admindashboard/vieworderinfo/{{beat.id}}">{{beat?.orders.length}}</a></td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>
+                        <a href="admindashboard/updatebeat/{{beat.id}}" style="padding: 4px; color: blue; cursor: pointer;" data-placement="top" data-original-title="Edit"><i class="fa fa-edit"></i> </a> &nbsp;&nbsp;
+                        <a (click)="onOpenModal(beat, 'delete')" style="padding: 4px; color: red; cursor: pointer;" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngSwitchCase="DataState.ERROR_STATE">
+            <div class="alert alert-danger p-3">
+              Resource Unavailable, Check Again Later !!!
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="card-footer">
+        <ul class="nav nav-pills">
+          <li class="nav-item" *ngFor="let p of pages; let i=index">
+            <a class="nav-link" href="" (click)="setPage(i,$event)" [ngClass]="{'active':i==page}">{{i}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="deleteModelLabel">Delete Beat</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p>Are you sure you want to delete beat {{deleteBeat?.name}}?</p>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="onDeleteBeat(deleteBeat?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+  <script>
+    
+    $(document).ready(function () {
+      $('#dataTable').DataTable({
+        "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"]],
+        "ordering": true,
+        stateSave: true
+      });
+    });
+  </script>

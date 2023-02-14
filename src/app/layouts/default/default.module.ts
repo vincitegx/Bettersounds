@@ -16,6 +16,13 @@ import { ActivateAccountComponent } from 'src/app/modules/activate-account/activ
 import { CheckoutComponent } from 'src/app/modules/checkout/checkout.component';
 import { MaterialModule } from 'src/app/material.module';
 import { TokenInterceptor } from 'src/app/token-interceptor';
+import { AudioPlayerComponent } from 'src/app/modules/audio-player/audio-player.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { WhatWeOfferComponent } from 'src/app/modules/what-we-offer/what-we-offer.component';
+import { MastheadComponent } from 'src/app/modules/masthead/masthead.component';
+import { RecentBeatsComponent } from 'src/app/modules/recent-beats/recent-beats.component';
+import { FreeBeatsComponent } from 'src/app/modules/free-beats/free-beats.component';
+import { ContactComponent } from 'src/app/modules/contact/contact.component';
 
 
 @NgModule({
@@ -26,7 +33,13 @@ import { TokenInterceptor } from 'src/app/token-interceptor';
     SignupComponent,
     CartComponent,
     ActivateAccountComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    AudioPlayerComponent,
+    WhatWeOfferComponent,
+    MastheadComponent,
+    RecentBeatsComponent,
+    FreeBeatsComponent,
+    ContactComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +50,7 @@ import { TokenInterceptor } from 'src/app/token-interceptor';
     ReactiveFormsModule,
     MaterialModule,
     BeatModule,
+    FontAwesomeModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],

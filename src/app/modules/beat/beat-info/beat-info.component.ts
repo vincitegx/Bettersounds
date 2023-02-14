@@ -70,7 +70,12 @@ export class BeatInfoComponent implements OnInit {
       this.beatType = beatType;
     }
     this.cartItem.beatType = this.beatType;
-    this.cartItem.beat = beat;
+    this.cartItem.beatId = beat.id;
+    if(this.cartItem.beatType == BeatType.mp3){
+      this.cartItem.price = beat.priceMp3;
+    }else{
+      this.cartItem.price = beat.priceWav;
+    }
     addedToCart = this.cartService.addToCart(this.cartItem);
     if(addedToCart == true){
       this.toastrService.success('Item has Been Added To Cart');

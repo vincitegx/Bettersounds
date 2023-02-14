@@ -5,6 +5,6 @@ export interface OrderDto {
     id?: number;
     orderTotal: number;
     cart: Cart;
-    user?: Userinfo;
+    userInfo?: Userinfo;
     orderStatement?: String;
 }

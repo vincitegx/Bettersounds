@@ -22,7 +22,7 @@ export class CheckoutService {
     private cartService: CartServiceService) { }
 
   public placeOrder(order: OrderDto): Observable<CustomResponse> {
-    return this.httpClient.post<CustomResponse>(this.apiServerUrl.client + '/api/checkout/purchase', order)
+    return this.httpClient.post<CustomResponse>(this.apiServerUrl.admin + '/api/checkout/purchase', order)
       .pipe(
         map(response => {
           return response;

@@ -21,6 +21,7 @@ import { UpdatebeatComponent } from './modules/admin/updatebeat/updatebeat.compo
 import { ViewbeatinfoComponent } from './modules/admin/viewbeatinfo/viewbeatinfo.component';
 import { AuthGuard } from './service/auth.guard';
 import { AdminGuard } from './service/admin.guard';
+import { OrderComponent } from './modules/admin/order/order.component';
 
 const routes: Routes = [
   {
@@ -108,6 +109,10 @@ const routes: Routes = [
       {
         path:'viewbeatinfo/:id',
         component:ViewbeatinfoComponent,
+      },
+      {
+        path:'allorders',
+        component:OrderComponent,
       },
     ]
   }

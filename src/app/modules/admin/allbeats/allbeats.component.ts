@@ -6,9 +6,12 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, startWith } from 'rxjs/operators';
 import { AppState } from 'src/app/dtos/app-state';
 import { CustomResponse } from 'src/app/dtos/custom-response';
+import { OrderDto } from 'src/app/dtos/order-dto';
 import { DataState } from 'src/app/enum/datastate.enum';
 import { Beat } from 'src/app/models/beat';
 import { CartItem } from 'src/app/models/cart-item';
+import { Order } from 'src/app/models/order';
+import { OrderService } from 'src/app/service/order.service';
 import { BeatServiceService } from 'src/app/shared/service/beat-service.service';
 import { environment } from 'src/environments/environment';
 // declare var $;
@@ -18,7 +21,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './allbeats.component.html',
   styleUrls: ['./allbeats.component.css']
 })
-export class AllbeatsComponent implements OnInit, AfterViewInit {
+export class AllbeatsComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
   adminApiUrl = environment.apiBaseUrl.admin;
@@ -26,6 +29,7 @@ export class AllbeatsComponent implements OnInit, AfterViewInit {
   // dataTable: any;
   public beat$: Array<Beat>=new Array<Beat>();
   public freebeat$: Array<Beat>=new Array<Beat>();
+  orders: Array<Order> =new Array<Order>();
   readonly DataState = DataState;
   public deleteBeat: Beat;
   pages: Array<number>;
@@ -42,26 +46,17 @@ export class AllbeatsComponent implements OnInit, AfterViewInit {
   appState$:Observable<AppState<CustomResponse>>;
   appState1$:Observable<AppState<CustomResponse>>;
   constructor(private beatService: BeatServiceService,
+    private orderService: OrderService,
     private toastr: ToastrService) {
     this.search = '';
-    this.sortBy = "postedDate";
+    this.sortBy = "id";
    }
-  ngAfterViewInit(): void {
-    // $('#dataTable').DataTable();
-    // this.dataTable = $(this.table.nativeElement);
-    // this.dataTable.DataTable();
-  }
-
   ngOnInit(): void {
-    this.dtOptions = {
-
-      pagingType: 'full_numbers',
-
-      pageLength: 5,
-
-      processing: true
-
-    };
+    this.orderService.getAllOrders$(0,this.sortBy).subscribe(
+      (response)=>{
+        this.orders  = response.data.orders['content'];
+      }
+    );
     this.searchForm = new FormGroup({
       search : new FormControl('', [Validators.required]),
     })
@@ -72,6 +67,7 @@ export class AllbeatsComponent implements OnInit, AfterViewInit {
     this.appState$ = this.beatService.getAllBeats$(this.search,this.page, this.sortBy)
     .pipe(
       map(response=>{
+        
         this.pages = new Array(response.data.beats['totalPages']);
         return {dataState:DataState.LOADED_STATE, appData:response}
       }),
